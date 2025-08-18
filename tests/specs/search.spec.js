@@ -1,11 +1,16 @@
-import { test } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import Search from "../pages/search";
-const search = new Search();
-
+const searchText = "Nike Air";
 test.describe("Evershop site search feature", () => {
+  let search;
+  test.beforeEach(async ({ page }) => {
+    search = new Search(page);
+    await page.goto("https://demo.evershop.io/");
+  });
   test("Should able to search with valid product name", async () => {
     await search.clickSearchIcon();
-    await search.enterSearchedText("Nike Air");
+    await search.enterSearchedText(searchText);
+    test.expect(searchText).toContain(await search.getSearchedItem());
   });
 
   test("Verify unsuccessful search with invalid product name", async () => {
@@ -18,13 +23,3 @@ test.describe("Evershop site search feature", () => {
     await search.enterSearchedText("&*(&(&(*&");
   });
 });
-
-// before hook
-// before suite
-// before Method
-// before
-
-// after hook
-// after
-// after method
-// after suite

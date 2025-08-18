@@ -1,12 +1,22 @@
 import searchObjects from "../pageObjects/searchObjects.js";
 
-const locate = new searchObjects();
 export default class Search {
-  async clickSearchIcon() {
-    await locate.searchIcon.click();
+  constructor(page) {
+    this.page = page;
+    this.locate = new searchObjects(page);
   }
 
-  async enterSearchedText(searchText) {
-    await locate.searchInputField.sendKeys(searchText);
+  async clickSearchIcon() {
+    await this.locate.searchIcon.click();
+  }
+
+  async enterSearchedText(text) {
+    await this.locate.serchInputField.fill(text);
+    await this.page.waitForTimeout(3000);
+  }
+
+  async getSearchedItem() {
+    const searchedText = await this.locate.searchedResult.innerText();
+    return searchedText;
   }
 }
