@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import Search from "../pages/search";
-const searchText = "Nike Air";
+import testData from "../../resource/testData.json";
+
 test.describe("Evershop site search feature", () => {
   let search;
   test.beforeEach(async ({ page }) => {
@@ -9,8 +10,8 @@ test.describe("Evershop site search feature", () => {
   });
   test("Should able to search with valid product name", async () => {
     await search.clickSearchIcon();
-    await search.enterSearchedText(searchText);
-    test.expect(searchText).toContain(await search.getSearchedItem());
+    await search.enterSearchedText(testData.searchedText);
+    test.expect(await search.getSearchedItem()).toContain(testData.searchedText);
   });
 
   test("Verify unsuccessful search with invalid product name", async () => {

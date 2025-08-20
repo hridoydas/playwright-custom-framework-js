@@ -12,6 +12,7 @@ export default class Search {
 
   async enterSearchedText(text) {
     await this.locate.serchInputField.fill(text);
+    await this.page.keyboard.press("Enter");
     await this.page.waitForTimeout(3000);
   }
 
