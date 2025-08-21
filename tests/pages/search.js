@@ -2,19 +2,22 @@ import searchObjects from "../pageObjects/searchObjects.js";
 
 export default class Search {
   constructor(page) {
-    this.locators = new searchObjects(page);
     this.page = page;
-  }
-
-  async navigete() {
-    await this.page.goto("https://demo.evershop.com");
+    this.locate = new searchObjects(page);
   }
 
   async clickSearchIcon() {
-    await this.locators.searchIcon.click();
+    await this.locate.searchIcon.click();
   }
 
   async enterSearchedText(text) {
-    await this.locators.searchInputField.fill(text);
+    await this.locate.serchInputField.fill(text);
+    await this.page.keyboard.press("Enter");
+    await this.page.waitForTimeout(3000);
+  }
+
+  async getSearchedItem() {
+    const searchedText = await this.locate.searchedResult.innerText();
+    return searchedText;
   }
 }
