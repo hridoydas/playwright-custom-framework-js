@@ -4,7 +4,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "npx playwright test --headed --project=chromium"
+    "test": "npx playwright test --headed --project=productdetails",
+     "test:search": "npx playwright test tests/specs/search.spec.js --headed --project=chromium"
   },
   "author": "hridoy_das",
   "license": "ISC",
